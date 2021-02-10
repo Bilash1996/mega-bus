@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($ <span id="first-price">150</span>)</label>
+                    <input id="first-count" class="inp-style inp-width" value="1" type="number" name="">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span id="firstAdd">+</span> <span id="first-minus">-</span> </p>
+                </div>
+            </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($ <span id="eco-price">100</span>)</label>
+                        <input id="eco-count" class="inp-style inp-width" value="1" type="number" name="">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p> <span id="eco-add">+</span> <span id="eco-minus">-</span> </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="sub-total">000</span></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="tax">00</span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="total">000</span></p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+    <script>
+    document.getElementById('firstAdd').addEventListener('click',function(){
+        handleProductChange(true);
+       
+    });
+    document.getElementById('first-minus').addEventListener('click' , function(){
+        handleProductChange(false);
+        
+    });
+    function handleProductChange(isIncrese){
+        const firstValue = document.getElementById('first-count');
+        const firstCount = parseInt(firstValue.value);
+        let firstNewCount = firstCount;
+        if(isIncrese == true){
+            firstNewCount = firstCount + 1;
+        }
+        if(isIncrese == false && firstCount > 0){
+            firstNewCount = firstCount - 1;
+        }
+        firstValue.value = firstNewCount;
+        const firstPrice = firstNewCount * 150;
+        document.getElementById('first-price').innerText = firstPrice;
+        totalprice();
+    };
+    document.getElementById('eco-add').addEventListener('click' , function(){
+        handleEcoChange(false);
+       
+    });
+    document.getElementById('eco-minus').addEventListener('click' , function(){
+        handleEcoChange(true);
+        
+    });
+    function handleEcoChange(isDecrese){
+        const ecoInput = document.getElementById('eco-count');
+        const ecoCount = parseInt(ecoInput.value);
+        let ecoNewCount = ecoCount;
+        if(isDecrese == true && ecoCount > 0){
+            ecoNewCount = ecoCount -1;
+        }
+        if(isDecrese == false){
+            ecoNewCount = ecoCount + 1;
+        }
+        ecoInput.value = ecoNewCount;
+        const ecoPrice = ecoNewCount * 100;
+        document.getElementById('eco-price').innerText = ecoPrice;
+        totalprice();
+       
+    }
+    function totalprice(){
+        // const subTotal = document.getElementById('sub-total');
+        // const subcount = parseInt(subTotal.value);
+        const firstValue = document.getElementById('first-count');
+        const firstCount = parseInt(firstValue.value);
+        const ecoInput = document.getElementById('eco-count');
+        const ecoCount = parseInt(ecoInput.value);
+        const subTotal = firstCount * 150 + ecoCount * 100;              
+        document.getElementById('sub-total').innerText = subTotal;
+        const tax = subTotal * 0.1;
+        document.getElementById('tax').innerText = tax;
+        const total = subTotal + tax;
+        document.getElementById('total').innerText = total;
+
+    }
+
+    </script>
+</body>
+
+</html>
